@@ -1,57 +1,28 @@
 <template>
   <div id="app">
-    <main id="home">
-
+    <main id="add-card">
+      
       <TopComp :title="'E-Wallet'" :subTitle="'active card'"/>
+      
+      <CardForm />
 
-      <CardPage :card="card" v-bind="activeCard"/>
-
-      <CardStack @sendData="getData" />
-
-      <router-link class="cta" to="/addCard">Add Card</router-link>
-      <button class="cta" @click="deleteCard">Remove Card</button>
     </main>
   </div>
 </template>
 
 <script>
-import CardPage from "../components/CardPage.vue";
-import CardStack from "../components/CardStack.vue";
+
+import CardForm from "../components/CardForm.vue";
 import TopComp from "../components/TopComp.vue";
+
 
 export default {
   components: {
-    CardPage,
-    CardStack,
+    CardForm,
     TopComp
   },
-  name: "WalletCards",
-  data() {
-    return {
-      card: this.$root.$data.cards[0],
-    };
-  },
+  
 
-  methods:{
-    deleteCard(){
-      if(confirm('are you sure?')){
-      this.$root.$data.cards.shift();
-      this.card = this.$root.$data.cards[0];}
-    },
-    getData(data) {
-      const oldActiveCard = this.card;
-      const newActiveCard = this.$root.$data.cards[data];
-      this.$root.$data.cards.splice(data, 1);
-      this.$root.$data.cards.push(oldActiveCard);
-      this.card = newActiveCard;
-    }
-  },
-
-  computed: {
-    activeCard() {
-      return this.$root.$data.cards[this.$root.$data.activeCardIndex]
-    }
-  }
 };
 </script>
 
@@ -72,10 +43,6 @@ body {
   margin: 0 auto;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-main {
-  display: block;
 }
 
 .top {
@@ -108,16 +75,6 @@ h3 {
   font-family: Source Sans Pro, sans-serif;
 }
 
-h1 {
-  display: block;
-  font-size: 2em;
-  margin-block-start: 0.67em;
-  margin-block-end: 0.67em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  font-weight: bold;
-}
-
 .top p {
   -webkit-box-flex: 1;
   -ms-flex: 1;
@@ -128,15 +85,14 @@ h1 {
   padding: 0.25rem;
 }
 
-p {
-  display: block;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+.blank {
+  background: linear-gradient(
+      237.75deg,
+      hsla(0, 0%, 100%, 0.24),
+      hsla(0, 0%, 100%, 0)
+    ),
+    #d0d0d0;
 }
-
-
 .card {
   max-width: 24rem;
   height: 14rem;
@@ -152,38 +108,6 @@ p {
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: 2.8rem;
   text-shadow: -1px -1px 2px hsla(0, 0%, 100%, 0.4);
-}
-
-.blockchain {
-  background: linear-gradient(248.52deg, rgba(0, 0, 0, 0.15) 1.49%, transparent),
-    #8b58f9;
-  color: #fff;
-}
-
-.bitcoin {
-  background: linear-gradient(
-      0.689turn,
-      hsla(0, 0%, 100%, 0.15),
-      hsla(0, 0%, 100%, 0) 99.07%
-    ),
-    #ffae34;
-  color: #222;
-}
-
-.ninja {
-  background: linear-gradient(
-      248.3deg,
-      hsla(0, 0%, 100%, 0.15),
-      hsla(0, 0%, 100%, 0)
-    ),
-    #222;
-  color: #fff;
-}
-
-.evil {
-  background: linear-gradient(248.3deg, rgba(0, 0, 0, 0.16), transparent),
-    #f33355;
-  color: #fff;
 }
 
 .card header {
@@ -251,33 +175,9 @@ p {
   padding: 0;
 }
 
-.card-stack {
-  margin: 2rem 0 12rem;
-  display: grid;
-  grid-auto-rows: 4rem;
-}
 
-.cta {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 4rem;
-  width: 100%;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  text-decoration: none;
-  color: #000;
-  border: 0.125rem solid #000;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 0.5rem;
-  margin: 2rem 0;
-}
+
+
+
 </style>
+
